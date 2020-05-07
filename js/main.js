@@ -13,6 +13,17 @@ function removeItem(e) {
 	parent.removeChild(item);
 }
 
+function completeItem(e) {
+	var item = this.parentNode.parentNode;
+	var parent = item.parentNode;
+	var id = parent.id;
+
+	var target = (id === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
+
+	parent.removeChild(item);
+	target.insertBefore(item, target.childNodes[0]);
+}
+
 function addItemTodo(text) {
 	var list = document.getElementById('todo');
 	var item = document.createElement('li');
@@ -24,12 +35,12 @@ function addItemTodo(text) {
 	var remove = document.createElement('button');
 	remove.classList.add('remove');
 	remove.innerHTML = removeSVG;
-
 	remove.addEventListener('click', removeItem);
 
 	var complete = document.createElement('button');
 	complete.classList.add('complete');
 	complete.innerHTML = completeSVG;
+	complete.addEventListener('click', completeItem);
 
 	buttons.appendChild(remove);
 	buttons.appendChild(complete);

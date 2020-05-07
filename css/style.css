@@ -116,8 +116,60 @@ ul.todo li {
 	margin: 0 0 10px 0;
     padding: 14px 100px 14px 14px;
     word-break: break-word;
+    position: relative;
 }
 
 ul.todo li:last-of-type {
   margin: 0;
+}
+
+ul.todo li .buttons {
+	width: 100px;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+ul.todo li .buttons button {
+	width: 50px;
+	height: 50px;
+	float: left;
+	background: none;
+	border: 0;
+	box-shadow: none;
+	outline: none;
+	-webkit-appearance: none;
+    -moz-appearance: none;
+	appearance: none;
+	position: relative;
+	cursor: pointer;
+}
+
+ul.todo li .buttons button:last-of-type:before {
+	content: '';
+	width: 1px;
+	height: 30px;
+	position: absolute;
+	top: 10px;
+	left: 0;
+	background-color: #edf0f1;
+}
+
+ul.todo li .buttons button svg {
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -11px 0 0 -11px;
+}
+
+ul.todo li .buttons button svg .fill {
+	fill: #c0cecb;
+	transition: fill 0.15s ease-in-out;
+}
+
+ul.todo li .buttons button.remove:hover svg .fill {
+	fill: #e85656;
 }

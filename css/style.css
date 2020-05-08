@@ -231,7 +231,7 @@ ul.todo#todo:empty:after {
 }
 
 ul.todo#completed:empty:after {
-	content: 'You have nof completed tasks.';
+	content: 'You have no completed tasks.';
 }
 
 ul.todo#completed:after, ul.todo#todo:after {

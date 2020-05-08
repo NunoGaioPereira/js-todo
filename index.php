@@ -10,7 +10,7 @@
     <!-- <link rel="shortcut icon" type="image/png" href="includes/imgs/favicon.png"/> -->
     <!-- <link rel="apple-touch-icon" href="includes/imgs/apple-touch-icon.png"> -->
 </head>
-<body>
+<body class="light">
 	<header>
 		<input type="text" placeholder="Enter an activity..." id="item">
 		<button id="add">

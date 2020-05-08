@@ -7,8 +7,8 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="shortcut icon" type="image/png" href="includes/imgs/favicon.png"/> -->
-    <!-- <link rel="apple-touch-icon" href="includes/imgs/apple-touch-icon.png"> -->
+    <link rel="shortcut icon" type="image/png" href="imgs/favicon.png"/>
+    <link rel="apple-touch-icon" href="imgs/apple-touch-icon.png">
 </head>
 <body class="light">
 	<header>

@@ -29,17 +29,32 @@ api.listen(3000, () => {
 	console.log('App running');
 });
 
+api.get('/tasks', (req, res) => {
+	connection.query('SELECT * FROM tasks ORDER BY created DESC', (error, results) => {
+		if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
+
+		res.json({
+			todo: results.filter((item) => !item.completed),
+			completed: results.filter((item) => item.completed)
+		});
+	});
+});
+
 api.post('/add', (req, res) => {
 	console.log(req.body);
 	connection.query('INSERT INTO tasks (description) VALUES (?)', [req.body.item], (error, results) => {
 		if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
 		
 		connection.query('SELECT LAST_INSERT_ID() FROM tasks', (error, results) => {
-		console.log(results[0]['LAST_INSERT_ID()']);
+		// console.log(results[0]['LAST_INSERT_ID()']);
+			if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
+			
+			res.json ({
+				id: results[0]['LAST_INSERT_ID()'],
+				description: req.body.item
+			});
 		});
 	});
-
-	// res.send('Yes!');
 });
 
 // api.get('/', (req, res) => {

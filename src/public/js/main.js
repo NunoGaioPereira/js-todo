@@ -7,7 +7,11 @@ if (isDark == 'true') {
     body.classList.replace('light', 'dark');
 }
 
-// renderList();
+getTasks((tasks) => {
+ 	tasks.forEach(item => {
+		addItemToDOM(item, item.completed);
+	});
+});
 
 document.getElementById('add').addEventListener('click', function() {
 	var value = document.getElementById('item').value;
@@ -44,13 +48,9 @@ document.getElementById('item').addEventListener('keydown', function (e) {
 function addItem (value) {
 	document.getElementById('item').value = '';
 	
-	sendItemToAPI(value, (item) => {
+	sendTaskToAPI(value, (item) => {
 		addItemToDOM(item);
 	});
-}
-
-function renderList() {
-	
 }
 
 function removeItem(e) {
@@ -114,7 +114,7 @@ function addItemToDOM(task, completed) {
 }
 
 // Send item to API
-function sendItemToAPI(item, callback) {
+function sendTaskToAPI(item, callback) {
 	var req = new XMLHttpRequest();
 	req.open('POST', '/add'); // open post request
 	req.setRequestHeader('Content-type', 'application/json');
@@ -122,6 +122,24 @@ function sendItemToAPI(item, callback) {
 
 	req.addEventListener('load', () =>{
 		// console.log(req.responseText);
+		var results = JSON.parse(req.responseText);
+		if (results.error) return console.log(results.error);
+
+		if (callback) callback(results);
+	});
+
+	req.addEventListener('error', () =>{
+		console.log('Error');
+	});
+}
+
+// Fetch tasks from API
+function getTasks(callback) {
+	var req = new XMLHttpRequest();
+	req.open('GET', '/tasks');
+	req.send();
+
+	req.addEventListener('load', () =>{
 		var results = JSON.parse(req.responseText);
 		if (results.error) return console.log(results.error);
 

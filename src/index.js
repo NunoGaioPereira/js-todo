@@ -33,10 +33,7 @@ api.get('/tasks', (req, res) => {
 	connection.query('SELECT * FROM tasks ORDER BY created DESC', (error, results) => {
 		if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
 
-		res.json({
-			todo: results.filter((item) => !item.completed),
-			completed: results.filter((item) => item.completed)
-		});
+		res.json(results);
 	});
 });
 

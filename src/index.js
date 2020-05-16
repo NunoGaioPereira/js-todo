@@ -31,7 +31,15 @@ api.listen(3000, () => {
 
 api.post('/add', (req, res) => {
 	console.log(req.body);
-	res.send('Yes!');
+	connection.query('INSERT INTO tasks (description) VALUES (?)', [req.body.item], (error, results) => {
+		if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
+		
+		connection.query('SELECT LAST_INSERT_ID() FROM tasks', (error, results) => {
+		console.log(results[0]['LAST_INSERT_ID()']);
+		});
+	});
+
+	// res.send('Yes!');
 });
 
 // api.get('/', (req, res) => {

@@ -81,20 +81,28 @@ function completeItem(e) {
 	var item = this.parentNode.parentNode;
 	var parent = item.parentNode;
 	var id = parent.id;
+	var taskId = parseInt(item.getAttribute('data-id'));
 
 	var target = (id === 'todo') ? document.getElementById('completed') : document.getElementById('todo');
 
-	// if (id === 'todo') {
-	// 	data.todo.splice(data.todo.indexOf(item.innerText), 1);
-	// 	data.completed.push(item.innerText);
-	// }
-	// else {
-	// 	data.completed.splice(data.completed.indexOf(item.innerText), 1);
-	// 	data.todo.push(item.innerText);	
-	// }
+	var req = new XMLHttpRequest();
+	req.open('POST', '/tasks/' + taskId + '/update');
+	req.setRequestHeader('Content-type', 'application/json');
+	req.send(JSON.stringify({ completed: (id === 'todo') }));
 
-	parent.removeChild(item);
-	target.insertBefore(item, target.childNodes[0]);
+
+	req.addEventListener('load', () =>{
+		var results = JSON.parse(req.responseText);
+		if (results.error) return console.log(results.error);
+
+		parent.removeChild(item);
+		target.insertBefore(item, target.childNodes[0]);
+	});
+
+	req.addEventListener('error', () =>{
+		console.log('Error');
+	});
+
 }
 
 function addItemToDOM(task, completed) {

@@ -54,6 +54,14 @@ api.post('/tasks/add', (req, res) => {
 	});
 });
 
+api.post('/tasks/:id/update', (req, res) => {
+	connection.query('UPDATE tasks SEt completed = ? WHERE id = ?', [req.body.completed, req.params.id], (error, results) => {
+		if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
+		
+		res.json({});
+	});
+});
+
 api.post('/tasks/:id/remove', (req, res) => {
 	connection.query('DELETE FROM tasks WHERE id = ?', [req.params.id], (error, results) => {
 		if (error) return res.json({ error: error }); // CHANGE FOR PRODUCTION!
